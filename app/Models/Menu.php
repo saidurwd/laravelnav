@@ -15,7 +15,7 @@ class Menu extends Model
 
     public static function getMenu($id = 0)
     {
-        $menus = Menu::where([['status', 'Active'], ['parent', $id]])->orderBy("ordering", "ASC")->get();
+        $menus = Menu::where([['parent', $id]])->orderBy("ordering", "ASC")->get();
         $data = null;
         if (count($menus) > 0) {
             foreach ($menus as $menu) {
@@ -25,7 +25,7 @@ class Menu extends Model
                 $data .= '		<p class="text-secondary ms-3">' . $menu->menu_link . '</p>';
                 $data .= '	</div>';
                 $data .= '	<div class="col-sm-6">';
-                $data .= '		<i class="fa fa-eye"></i> <span class="text-uppercase">' . $menu->menu_name . '</span>';
+                $data .= Menu::getStatus($menu->id) . '<span class="text-uppercase ms-2">' . $menu->menu_name . '</span>';
                 $data .= '	</div>';
                 $data .= '	<div class="col-sm-2">';
                 $data .= '		<button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil"></i>';
@@ -34,7 +34,7 @@ class Menu extends Model
                 $data .= '		</button>';
                 $data .= '	</div>';
                 $data .= '</div>';
-                $submenus = Menu::where([['status', 'Active'], ['parent', $menu->id]])->orderBy("ordering", "ASC")->get();
+                $submenus = Menu::where([['parent', $menu->id]])->orderBy("ordering", "ASC")->get();
                 if (count($submenus) > 0) {
                     foreach ($submenus as $submenu) {
                         $data .= '<div class="row mt-3">';
@@ -43,7 +43,7 @@ class Menu extends Model
                         $data .= '		<p class="text-secondary ms-4">' . $submenu->menu_link . '</p>';
                         $data .= '	</div>';
                         $data .= '	<div class="col-sm-6">';
-                        $data .= '		<i class="fa fa-eye"></i> <span class="text-uppercase">' . $submenu->menu_name . '</span>';
+                        $data .= Menu::getStatus($submenu->id) . '<span class="text-uppercase ms-2">' . $submenu->menu_name . '</span>';
                         $data .= '	</div>';
                         $data .= '	<div class="col-sm-2">';
                         $data .= '		<button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil"></i>';
@@ -57,6 +57,17 @@ class Menu extends Model
             }
         }
         return $data;
+    }
+
+    public static function getStatus($id)
+    {
+        $menu = Menu::where('id', $id)->first();
+        if($menu->status=='Active'){
+            return '<a href="statusupdate/'.$menu->id.'" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
+        } else {
+            return '<a href="statusupdate/'.$menu->id.'" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
+        }
+
     }
 
 }

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-Use App\Http\Controllers\MenuController;
+use App\Http\Controllers\MenuController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,8 +17,12 @@ Use App\Http\Controllers\MenuController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('menu',[MenuController::class,'Index']);
-Route::get('create',[MenuController::class,'CreateMenu']);
+
+Route::controller(MenuController::class)->group(function () {
+    Route::get('menu', 'Index');
+    Route::post('create', 'CreateMenu');
+    Route::get('statusupdate/{id}', 'ChangeStatus');
+});
 
 //Route::get('manage-menus/{id?}',[MenuController::class,'index']);
 //Route::post('create-menu',[MenuController::class,'store']);

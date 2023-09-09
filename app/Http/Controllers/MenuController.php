@@ -31,5 +31,18 @@ class MenuController extends Controller
         }
     }
 
+    public function ChangeStatus(Request $request)
+    {
+        $data = $request->all();
+        $menu = Menu::findOrFail($request->id);
+        if ($menu->status == "Active") {
+            $data['status'] = 'Inactive';
+        } else {
+            $data['status'] = 'Active';
+        }
+        $menu->update($data);
+        return redirect()->back();
+    }
+
 
 }

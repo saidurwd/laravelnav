@@ -60,7 +60,6 @@
                         {{csrf_field()}}
                         <div class="mb-3 mt-3">
                             <label for="email" class="form-label clearfix">Menu Location</label><br/>
-                            {{$locations= App\Models\MenuSetting::getData('LOCATION')}}
                             @if(count($locations) > 0)
                                 @foreach($locations as $location)
                                     <div class="form-check form-check-inline">
