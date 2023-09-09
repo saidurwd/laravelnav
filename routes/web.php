@@ -16,9 +16,7 @@ Use App\Http\Controllers\MenuController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test', function () {
-    return view('master');
-});
+Route::get('menu',[MenuController::class,'index']);
 
 Route::get('manage-menus/{id?}',[MenuController::class,'index']);
 Route::post('create-menu',[MenuController::class,'store']);

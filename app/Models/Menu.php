@@ -9,9 +9,8 @@ class Menu extends Model
 {
     use HasFactory;
 
-//    protected $table = 'navigation';
+//    protected $table = 'menus';
 //    protected $primaryKey = 'id';
-    protected $fillable = ['title','name','slug','type','target','menu_id','created_at','updated_at'];
-//    protected $fillable = ['title'];
+    protected $fillable = ['location_id', 'type_id', 'menu_name', 'menu_link', 'new_tab', 'status', 'created_at', 'updated_at'];
 }
 
