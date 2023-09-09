@@ -28,9 +28,9 @@ class Menu extends Model
                 $data .= Menu::getStatus($menu->id) . '<span class="text-uppercase ms-2">' . $menu->menu_name . '</span>';
                 $data .= '	</div>';
                 $data .= '	<div class="col-sm-2">';
-                $data .= '		<button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil"></i>';
+                $data .= '		<button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="' . $menu->id . '"><i class="fa fa-pencil"></i>';
                 $data .= '		</button>';
-                $data .= '		<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>';
+                $data .= '		<button type="button" class="btn btn-outline-danger btn-sm DeleteMenuModal" value="' . $menu->id . '"><i class="fa fa-trash"></i>';
                 $data .= '		</button>';
                 $data .= '	</div>';
                 $data .= '</div>';
@@ -46,9 +46,9 @@ class Menu extends Model
                         $data .= Menu::getStatus($submenu->id) . '<span class="text-uppercase ms-2">' . $submenu->menu_name . '</span>';
                         $data .= '	</div>';
                         $data .= '	<div class="col-sm-2">';
-                        $data .= '		<button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil"></i>';
+                        $data .= '		<button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="' . $menu->id . '"><i class="fa fa-pencil"></i>';
                         $data .= '		</button>';
-                        $data .= '		<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>';
+                        $data .= '		<button type="button" class="btn btn-outline-danger btn-sm DeleteMenuModal" value="' . $submenu->id . '"><i class="fa fa-trash"></i>';
                         $data .= '		</button>';
                         $data .= '	</div>';
                         $data .= '</div>';

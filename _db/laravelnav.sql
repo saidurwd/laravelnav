@@ -100,18 +100,25 @@ DROP TABLE IF EXISTS `menus`;
 
 CREATE TABLE `menus` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `parent` int(11) NOT NULL DEFAULT 0,
   `location_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
   `menu_name` varchar(255) NOT NULL,
   `menu_link` varchar(255) DEFAULT NULL,
-  `new_tab` tinyint(4) DEFAULT NULL,
+  `new_tab` tinyint(4) DEFAULT 0,
+  `ordering` int(11) DEFAULT 0,
   `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `menus` */
+
+insert  into `menus`(`id`,`parent`,`location_id`,`type_id`,`menu_name`,`menu_link`,`new_tab`,`ordering`,`status`,`created_at`,`updated_at`) values 
+(2,0,1,4,'Storage Locations','/storage-locations',0,0,'Active','2023-09-09 07:44:18','2023-09-09 13:35:32'),
+(3,0,1,4,'Resources','/resources',0,0,'Active','2023-09-09 07:44:45','2023-09-09 07:44:45'),
+(7,2,1,5,'Sub Menu 1','/submenu1',0,0,'Active','2023-09-09 18:23:11','2023-09-09 13:35:34');
 
 /*Table structure for table `menus_copy` */
 

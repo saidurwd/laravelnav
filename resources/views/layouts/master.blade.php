@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel Nav - @yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
@@ -19,12 +20,18 @@
             font-size: 16px;
             background-color: #F1F5F9;
         }
-        .bg-color{
+
+        .bg-color {
             background-color: #FFFFFF;
         }
     </style>
 </head>
 <body>
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 @yield('content')
 </body>
 </html>

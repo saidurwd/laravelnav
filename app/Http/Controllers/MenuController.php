@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menuitem;
 use App\Models\MenuSetting;
 use Illuminate\Http\Request;
 use App\Models\Menu;
@@ -44,5 +45,18 @@ class MenuController extends Controller
         return redirect()->back();
     }
 
+    public function EditMenu(Request $request)
+    {
+        $data = $request->all();
+        $item = Menu::findOrFail($request->id);
+        $item->update($data);
+        return redirect()->back();
+    }
+
+    public function DeleteMenu(Request $request)
+    {
+        Menu::findOrFail($request->id)->delete();
+        return redirect('menu')->with('success', 'Menu deleted successfully');
+    }
 
 }

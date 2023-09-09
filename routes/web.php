@@ -22,6 +22,11 @@ Route::controller(MenuController::class)->group(function () {
     Route::get('menu', 'Index');
     Route::post('create', 'CreateMenu');
     Route::get('statusupdate/{id}', 'ChangeStatus');
+    Route::get('/find-menu/{id}', function (Request $request, $id) {
+        return $id;
+    });
+    Route::get('edit-menu/{id}', 'EditMenu');
+    Route::get('delete-menu/{id}', 'DeleteMenu');
 });
 
 //Route::get('manage-menus/{id?}',[MenuController::class,'index']);
