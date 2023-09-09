@@ -12,9 +12,10 @@ class MenuController extends Controller
     public function Index()
     {
         return view('menu', [
-            'menus' => Menu::where('status', 'Active')->get(),
-            'locations' => MenuSetting::where('type', 'LOCATION')->get(),
-            'types' => MenuSetting::where('type', 'TYPE')->get()
+//            'menus' =>  Menu::where([['status', 'Active'], ['parent', 0]])->orderBy("ordering", "ASC")->get(),
+            'menus' => Menu::getMenu(),
+            'locations' => MenuSetting::getData('LOCATION'),
+            'types' => MenuSetting::getData('TYPE')
         ]);
     }
 

@@ -21,24 +21,27 @@
                         </button>
                     </div>
                 </div>
-                @if(count($menus) > 0)
-                    @foreach($menus as $menu)
-                        <div class="row mt-3">
-                            <div class="col-sm-4">
-                                <i class="fa-solid fa-grip-vertical"></i> {{$menu->menu_name}}
-                                <p class="text-secondary mx-3">{{$menu->menu_link}}</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <i class="fa fa-eye"></i> <span class="text-uppercase">{{$menu->menu_name}}</span>
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+                {!! $menus !!}
+{{--                @if(count($menus) > 0)--}}
+{{--                    @foreach($menus as $menu)--}}
+{{--                        <div class="row mt-3">--}}
+{{--                            <div class="col-sm-4">--}}
+{{--                                <i class="fa-solid fa-grip-vertical"></i> {{$menu->menu_name}}--}}
+{{--                                <p class="text-secondary mx-3">{{$menu->menu_link}}</p>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-sm-6">--}}
+{{--                                <i class="fa fa-eye"></i> <span class="text-uppercase">{{$menu->menu_name}}</span>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-sm-2">--}}
+{{--                                <button type="button" class="btn btn-outline-warning btn-sm"><i--}}
+{{--                                        class="fa fa-pencil"></i>--}}
+{{--                                </button>--}}
+{{--                                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
+{{--                @endif--}}
             </div>
         </div>
     </div>
@@ -57,6 +60,7 @@
                         {{csrf_field()}}
                         <div class="mb-3 mt-3">
                             <label for="email" class="form-label clearfix">Menu Location</label><br/>
+                            {{$locations= App\Models\MenuSetting::getData('LOCATION')}}
                             @if(count($locations) > 0)
                                 @foreach($locations as $location)
                                     <div class="form-check form-check-inline">
@@ -88,7 +92,8 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="email" class="form-label">Menu Link</label>
-                            <input type="text" class="form-control" id="menu_link" placeholder="#" name="menu_link" required>
+                            <input type="text" class="form-control" id="menu_link" placeholder="#" name="menu_link"
+                                   required>
                         </div>
                         <div class="form-check mb-3">
                             <label class="form-check-label">

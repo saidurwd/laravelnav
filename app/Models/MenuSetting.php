@@ -12,4 +12,8 @@ class MenuSetting extends Model
 //    protected $table = 'menu_settings';
 //    protected $primaryKey = 'id';
     protected $fillable = ['type', 'title', 'created_at', 'updated_at'];
+
+    public static function getData($type){
+        return MenuSetting::where('type', $type)->get();
+    }
 }
