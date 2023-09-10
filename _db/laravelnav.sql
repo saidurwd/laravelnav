@@ -16,6 +16,25 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`laravelnav` /*!40100 DEFAULT CHARACTER 
 
 USE `laravelnav`;
 
+/*Table structure for table `companies` */
+
+DROP TABLE IF EXISTS `companies`;
+
+CREATE TABLE `companies` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `companies` */
+
+insert  into `companies`(`id`,`name`,`email`,`address`,`created_at`,`updated_at`) values 
+(1,'Test','test@domain.com','Dhaka, Bangladesh','2023-09-10 10:03:55','2023-09-10 10:04:08');
+
 /*Table structure for table `failed_jobs` */
 
 DROP TABLE IF EXISTS `failed_jobs`;
@@ -96,7 +115,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -106,7 +125,8 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (3,'2019_08_19_000000_create_failed_jobs_table',1),
 (4,'2019_12_14_000001_create_personal_access_tokens_table',1),
 (5,'2023_09_07_165507_create_menu_settings_table',1),
-(6,'2023_09_07_170209_create_menus_table',1);
+(6,'2023_09_07_170209_create_menus_table',1),
+(7,'2023_09_10_093656_create_companies_table',2);
 
 /*Table structure for table `password_resets` */
 
