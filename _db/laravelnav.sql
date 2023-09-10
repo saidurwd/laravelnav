@@ -12,27 +12,9 @@ MySQL - 10.4.28-MariaDB : Database - laravelnav
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-/*Table structure for table `categories` */
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`laravelnav` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
 
-DROP TABLE IF EXISTS `categories`;
-
-CREATE TABLE `categories` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `categories` */
-
-insert  into `categories`(`id`,`title`,`slug`,`status`,`created_at`,`updated_at`) values 
-(1,'about us','about-us','show','2021-05-21 13:11:51',NULL),
-(2,'projects','projects','show','2021-05-21 13:16:38',NULL),
-(3,'get involved','get-involved','show','2021-05-21 13:19:49',NULL),
-(4,'news & events','news-events','show','2021-05-21 13:20:17',NULL);
+USE `laravelnav`;
 
 /*Table structure for table `failed_jobs` */
 
@@ -74,26 +56,6 @@ insert  into `menu_settings`(`id`,`type`,`title`,`created_at`,`updated_at`) valu
 (4,'TYPE','Single Menu','2023-09-09 10:01:04','2023-09-09 10:01:09'),
 (5,'TYPE','Dropdown Menu','2023-09-09 10:01:07','2023-09-09 10:01:11');
 
-/*Table structure for table `menuitems` */
-
-DROP TABLE IF EXISTS `menuitems`;
-
-CREATE TABLE `menuitems` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `target` varchar(255) DEFAULT NULL,
-  `menu_id` int(11) DEFAULT NULL,
-  `status` enum('Active','Inactive') DEFAULT 'Active',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `menuitems` */
-
 /*Table structure for table `menus` */
 
 DROP TABLE IF EXISTS `menus`;
@@ -120,23 +82,6 @@ insert  into `menus`(`id`,`parent`,`location_id`,`type_id`,`menu_name`,`menu_lin
 (3,0,1,4,'Resources','/resources',0,0,'Active','2023-09-09 07:44:45','2023-09-09 07:44:45'),
 (7,2,1,5,'Sub Menu 1','/submenu1',0,0,'Active','2023-09-09 18:23:11','2023-09-09 13:35:34');
 
-/*Table structure for table `menus_copy` */
-
-DROP TABLE IF EXISTS `menus_copy`;
-
-CREATE TABLE `menus_copy` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `menus_copy` */
-
 /*Table structure for table `migrations` */
 
 DROP TABLE IF EXISTS `migrations`;
@@ -155,8 +100,8 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (2,'2014_10_12_100000_create_password_resets_table',1),
 (3,'2019_08_19_000000_create_failed_jobs_table',1),
 (4,'2019_12_14_000001_create_personal_access_tokens_table',1),
-(5,'2023_09_07_165507_create_nav_location_table',1),
-(6,'2023_09_07_170209_create_navigation_table',1);
+(5,'2023_09_07_165507_create_menu_settings_table',1),
+(6,'2023_09_07_170209_create_menus_table',1);
 
 /*Table structure for table `password_resets` */
 
@@ -191,31 +136,6 @@ CREATE TABLE `personal_access_tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `personal_access_tokens` */
-
-/*Table structure for table `posts` */
-
-DROP TABLE IF EXISTS `posts`;
-
-CREATE TABLE `posts` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` longtext DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `category` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `posts` */
-
-insert  into `posts`(`id`,`title`,`slug`,`description`,`image`,`category`,`status`,`created_at`,`updated_at`) values 
-(2,'Illo culpa dolore eo','Nulla dolore sapient','<p>Nisi perspiciatis, e.</p>','1621651621slider2.jpg','1','show','2021-05-22 03:02:01',NULL),
-(3,'Distinctio Et itaqu','Labore neque facere','<p>Autem reiciendis off.</p>','1621651638slider3.jpg','3','show','2021-05-22 03:02:18','2021-05-22 03:05:39'),
-(4,'Illum dolorum accus','Nulla reiciendis con','<p>Quis laboris ut est.</p>','1621651650slider4.jpg','2','show','2021-05-22 03:02:30','2021-05-22 03:05:42'),
-(5,'Et nulla mollit culp','et-nulla-mollit-culp','<p>Delectus, aut aut au.</p>','1621652968logo.png','1','show','2021-05-22 08:57:03','2021-05-22 09:09:28');
 
 /*Table structure for table `users` */
 
