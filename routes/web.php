@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::controller(MenuController::class)->group(function () {
     Route::get('menu', 'Index');
-    Route::post('create', 'CreateMenu');
+    Route::get('create', 'CreateMenu');
     Route::get('statusupdate/{id}', 'ChangeStatus');
     Route::get('/find-menu/{id}', function (Request $request, $id) {
         return $id;

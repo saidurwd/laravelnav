@@ -64,7 +64,7 @@
                                 @foreach($locations as $location)
                                     <div class="form-check form-check-inline">
                                         <input type="radio" class="form-check-input" id="location_{{$location->id}}"
-                                               name="location_id" value="{{$location->id}}">
+                                               name="location_id" value="{{$location->id}}" required>
                                         <label class="form-check-label"
                                                for="radio{{$location->id}}">{{$location->title}}</label>
                                     </div>
@@ -77,7 +77,7 @@
                                 @foreach($types as $type)
                                     <div class="form-check form-check-inline">
                                         <input type="radio" class="form-check-input" id="type_{{$type->id}}"
-                                               name="type_id" value="{{$type->id}}">
+                                               name="type_id" value="{{$type->id}}" required>
                                         <label class="form-check-label"
                                                for="radio{{$type->id}}">{{$type->title}}</label>
                                     </div>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="form-check mb-3">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="new_tab" value=""> Open in a new
+                                <input class="form-check-input" type="checkbox" name="new_tab" value="1"> Open in a new
                                 tab
                             </label>
                         </div>
@@ -122,7 +122,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <form action="{{url('update-menu')}}" class="form-inline">
-                        {{csrf_field()}}
+                        {{csrf_field()}} {{ method_field('PUT') }}
                         <div class="mb-3 mt-3">
                             <label for="email" class="form-label clearfix">Menu Location</label><br/>
                             @if(count($locations) > 0)
@@ -161,7 +161,7 @@
                         </div>
                         <div class="form-check mb-3">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="new_tab" value=""> Open in a new
+                                <input class="form-check-input" type="checkbox" name="new_tab" value="1"> Open in a new
                                 tab
                             </label>
                         </div>
