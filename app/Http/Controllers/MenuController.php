@@ -15,7 +15,8 @@ class MenuController extends Controller
 //            'menus' =>  Menu::where([['status', 'Active'], ['parent', 0]])->orderBy("ordering", "ASC")->get(),
             'menus' => Menu::getMenu(),
             'locations' => MenuSetting::getData('LOCATION'),
-            'types' => MenuSetting::getData('TYPE')
+            'types' => MenuSetting::getData('TYPE'),
+            'ddMenus' => Menu::getDragDropMenu(Menu::getMenuItems())
         ]);
     }
 

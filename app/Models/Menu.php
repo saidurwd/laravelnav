@@ -28,9 +28,10 @@ class Menu extends Model
                 $data .= Menu::getStatus($menu->id) . '<span class="text-uppercase ms-2">' . $menu->menu_name . '</span>';
                 $data .= '	</div>';
                 $data .= '	<div class="col-sm-2">';
+                $data .= '<a class="btn btn-outline-warning btn-sm EditMenuModal" href="menus/' . $menu->id . '/edit"><i class="fa fa-pencil"></i></a>';
 //                $data .= '		<button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="' . $menu->id . '"><i class="fa fa-pencil"></i>';
 //                $data .= '		</button>';
-                $data .= '<a class="btn btn-outline-warning btn-sm EditMenuModal" href="menus/'.$menu->id.'/edit"><i class="fa fa-pencil"></i></a>';
+//                $data .= '<a class="btn btn-outline-warning btn-sm EditMenuModal" href="menus/'.$menu->id.'/edit"><i class="fa fa-pencil"></i></a>';
                 $data .= '		<button type="button" class="btn btn-outline-danger btn-sm DeleteMenuModal" value="' . $menu->id . '"><i class="fa fa-trash"></i>';
                 $data .= '		</button>';
                 $data .= '	</div>';
@@ -47,9 +48,9 @@ class Menu extends Model
                         $data .= Menu::getStatus($submenu->id) . '<span class="text-uppercase ms-2">' . $submenu->menu_name . '</span>';
                         $data .= '	</div>';
                         $data .= '	<div class="col-sm-2">';
-//                        $data .= '		<button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="' . $menu->id . '"><i class="fa fa-pencil"></i>';
-//                        $data .= '		</button>';
-                        $data .= '<a class="btn btn-outline-warning btn-sm EditMenuModal" href="menus/'.$submenu->id.'/edit"><i class="fa fa-pencil"></i></a>';
+                        $data .= '		<button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="' . $menu->id . '"><i class="fa fa-pencil"></i>';
+                        $data .= '		</button>';
+//                        $data .= '<a class="btn btn-outline-warning btn-sm EditMenuModal" href="menus/'.$submenu->id.'/edit"><i class="fa fa-pencil"></i></a>';
                         $data .= '		<button type="button" class="btn btn-outline-danger btn-sm DeleteMenuModal" value="' . $submenu->id . '"><i class="fa fa-trash"></i>';
                         $data .= '		</button>';
                         $data .= '	</div>';
@@ -64,12 +65,60 @@ class Menu extends Model
     public static function getStatus($id)
     {
         $menu = Menu::where('id', $id)->first();
-        if($menu->status=='Active'){
-            return '<a href="statusupdate/'.$menu->id.'" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
+        if ($menu->status == 'Active') {
+            return '<a href="statusupdate/' . $menu->id . '" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
         } else {
-            return '<a href="statusupdate/'.$menu->id.'" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
+            return '<a href="statusupdate/' . $menu->id . '" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
         }
 
+    }
+
+    public static function getMenuItems()
+    {
+        $query = Menu::orderBy("ordering", "ASC")->get();
+        $ref = [];
+        $items = [];
+        foreach ($query as $data) {
+            $thisRef = &$ref[$data->id];
+            $thisRef['parent'] = $data->parent;
+            $thisRef['menu_name'] = $data->menu_name;
+            $thisRef['menu_link'] = $data->menu_link;
+            $thisRef['id'] = $data->id;
+            if ($data->parent == 0) {
+                $items[$data->id] = &$thisRef;
+            } else {
+                $ref[$data->parent]['child'][$data->id] = &$thisRef;
+            }
+        }
+        return $items;
+    }
+
+    public static function getDragDropMenu($items, $class = 'dd-list')
+    {
+//        $items = Menu::getMenuItems();
+        $html = "<ol class=\"" . $class . "\" id=\"menu-id\">";
+        foreach ($items as $key => $value) {
+            $html .= '<li class="dd-item dd3-item" data-id="' . $value['id'] . '" >
+                    <div class="row mt-1 shadow-none p-1 bg-light rounded">
+                        <div class="col-sm-4">
+                            <span class="dd-handle dd3-handle"><i class="fa-solid fa-grip-vertical"></i></span> <span id="label_show' . $value['id'] . '">' . $value['menu_name'] . '</span>
+                            <p class="text-secondary mx-3"><span id="link_show' . $value['id'] . '">' . $value['menu_link'] . '</span></p>
+                        </div>
+                        <div class="col-sm-6">
+                            <i class="fa fa-eye"></i> <span class="text-uppercase">' . $value['menu_name'] . '</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="' . $value['id'] . '"><i class="fa fa-pencil"></i></button>
+                            <button type="button" class="btn btn-outline-danger btn-sm DeleteMenuModal" value="' . $value['id'] . '"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>';
+            if (array_key_exists('child', $value)) {
+                $html .= Menu::getDragDropMenu($value['child'], 'child');
+            }
+            $html .= "</li>";
+        }
+        $html .= "</ol>";
+        return $html;
     }
 
 }
