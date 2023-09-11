@@ -9,9 +9,9 @@ use Session;
 
 class MenuController extends Controller
 {
-    public function Index()
+    public function index()
     {
-        return view('menu', [
+        return view('nav.index', [
 //            'menus' =>  Menu::where([['status', 'Active'], ['parent', 0]])->orderBy("ordering", "ASC")->get(),
             'menus' => Menu::getMenu(),
             'locations' => MenuSetting::getData('LOCATION'),
@@ -19,16 +19,17 @@ class MenuController extends Controller
         ]);
     }
 
-    public function CreateMenu(Request $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-        if (Menu::create($data)) {
-            $newdata = Menu::orderby('id', 'DESC')->first();
-            session::flash('success', 'Menu saved successfully !');
-            return redirect("menu");
-        } else {
-            return redirect()->back()->with('error', 'Failed to save Menu !');
-        }
+        $request->validate([
+            'location_id' => 'required',
+            'type_id' => 'required',
+            'menu_name' => 'required',
+            'menu_link' => 'required',
+        ]);
+
+        Menu::create($request->post());
+        return redirect()->route('menus.index')->with('success', 'Menu has been created successfully.');
     }
 
     public function ChangeStatus(Request $request)
@@ -52,10 +53,33 @@ class MenuController extends Controller
         return redirect()->back();
     }
 
+    public function edit(Menu $menu)
+    {
+//        return view('nav.edit', compact('menu'));
+        return view('nav.edit', [
+            'menu' => $menu,
+            'locations' => MenuSetting::getData('LOCATION'),
+            'types' => MenuSetting::getData('TYPE')
+        ]);
+    }
+
+    public function update(Request $request, Menu $menu)
+    {
+        $request->validate([
+            'location_id' => 'required',
+            'type_id' => 'required',
+            'menu_name' => 'required',
+            'menu_link' => 'required',
+        ]);
+
+        $menu->fill($request->post())->save();
+        return redirect()->route('menus.index')->with('success', 'Menu has been updated successfully');
+    }
+
     public function DeleteMenu(Request $request)
     {
         Menu::findOrFail($request->id)->delete();
-        return redirect('menu')->with('success', 'Menu deleted successfully');
+        return redirect('menus')->with('success', 'Menu has been deleted successfully');
     }
 
 }

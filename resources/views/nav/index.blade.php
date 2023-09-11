@@ -56,8 +56,8 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="{{url('create')}}" class="form-inline">
-                        {{csrf_field()}}
+                        <form action="{{ route('menus.store') }}" class="form-inline" method="POST" enctype="multipart/form-data">
+                            @csrf
                         <div class="mb-3 mt-3">
                             <label for="email" class="form-label clearfix">Menu Location</label><br/>
                             @if(count($locations) > 0)
@@ -203,7 +203,7 @@
     </div>
     <script>
         $(document).on('click', '.DeleteMenuModal', function () {
-            var url = "find-menu";
+            var url = "menus/find-menu";
             var id = $(this).val();
             $.get(url + '/' + id, function (data) {
                 //success data
@@ -213,17 +213,17 @@
             })
         });
         $(document).on('click', '#deleteYes', function () {
-            var url = "delete-menu";
+            var url = "menus/delete-menu";
             var id = $(this).val();
             $.get(url + '/' + id, function (data) {
                 //success data
-                // console.log(id);
+                console.log(id);
                 $('#DeleteMenuModal').modal('hide');
                 $('#DeleteMenuModal').load(document.URL +  '#DeleteMenuModal');
             })
         });
         $(document).on('click','.EditMenuModal',function(){
-            var url = "edit-menu";
+            var url = "menus/edit-menu";
             var id= $(this).val();
             $.get(url + '/' + id, function (data) {
                 //success data
