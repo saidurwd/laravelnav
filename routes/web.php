@@ -20,6 +20,19 @@ use App\Http\Controllers\CompanyController;
 //    return view('welcome');
 //});
 
+Route::get('/', function () {
+    return redirect('/menus');
+});
+Route::resource('menus', MenuController::class);
+Route::controller(MenuController::class)->group(function () {
+    Route::get('menus/statusupdate/{id}', 'ChangeStatus');
+    Route::get('menus/find-menu/{id}', function (Request $request, $id) {
+        return $id;
+    });
+    Route::get('menus/delete-menu/{id}', 'DeleteMenu');
+});
+Route::resource('companies', CompanyController::class);
+
 //Route::controller(MenuController::class)->group(function () {
 //    Route::get('menu', 'Index');
 //    Route::get('create', 'CreateMenu');
@@ -30,12 +43,3 @@ use App\Http\Controllers\CompanyController;
 //    Route::get('edit-menu/{id}', 'EditMenu');
 //    Route::get('delete-menu/{id}', 'DeleteMenu');
 //});
-Route::resource('menus', MenuController::class);
-Route::controller(MenuController::class)->group(function () {
-    Route::get('menus/statusupdate/{id}', 'ChangeStatus');
-    Route::get('menus/find-menu/{id}', function (Request $request, $id) {
-        return $id;
-    });
-    Route::get('menus/delete-menu/{id}', 'DeleteMenu');
-});
-Route::resource('companies', CompanyController::class);
