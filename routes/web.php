@@ -30,6 +30,7 @@ Route::controller(MenuController::class)->group(function () {
         return $id;
     });
     Route::get('menus/delete-menu/{id}', 'DeleteMenu');
+    Route::post('menus/edit-order', 'edit_order');
 });
 Route::resource('companies', CompanyController::class);
 

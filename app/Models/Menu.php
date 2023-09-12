@@ -121,5 +121,20 @@ class Menu extends Model
         return $html;
     }
 
+    public static function parseJsonArray($jsonArray, $parentID = 0)
+    {
+        $return = array();
+        foreach ($jsonArray as $subArray) {
+            $returnSubSubArray = array();
+            if (isset($subArray->children)) {
+                $returnSubSubArray = Menu::parseJsonArray($subArray->children, $subArray->id);
+            }
+
+            $return[] = array('id' => $subArray->id, 'parentID' => $parentID);
+            $return = array_merge($return, $returnSubSubArray);
+        }
+        return $return;
+    }
+
 }
 

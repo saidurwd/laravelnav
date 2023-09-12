@@ -77,6 +77,25 @@ class MenuController extends Controller
         return redirect()->route('menus.index')->with('success', 'Menu has been updated successfully');
     }
 
+    public function edit_order(Request $request)
+    {
+        $req = $request->all();
+        $json_data = $request->input('data');
+//        print_r($json_data); exit;
+//        $data = json_decode($_POST['data']);
+        $data = json_decode($json_data);
+        $readbleArray = Menu::parseJsonArray($data);
+        $i = 0;
+        foreach ($readbleArray as $row) {
+            $i++;
+            $menu = Menu::findOrFail($row['id']);
+            $datas['parent'] = $row['parentID'];
+            $datas['ordering'] = $i;
+            $menu->update($datas);
+//            $db->exec("update menus set parent = '".$row['parentID']. "', ordering = '".$i."' where id = '".$row['id']."' ");
+        }
+    }
+
     public function DeleteMenu(Request $request)
     {
         Menu::findOrFail($request->id)->delete();
