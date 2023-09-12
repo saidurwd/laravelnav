@@ -29,7 +29,7 @@ CREATE TABLE `companies` (
 /*Data for the table `companies` */
 
 insert  into `companies`(`id`,`name`,`email`,`address`,`created_at`,`updated_at`) values 
-(1,'Test','test@domain.com','Dhaka, Bangladesh','2023-09-10 10:03:55','2023-09-10 10:04:08');
+(1,'Storagely.io','test@domain.com','Dhaka, Bangladesh','2023-09-10 10:03:55','2023-09-10 10:04:08');
 
 /*Table structure for table `failed_jobs` */
 
@@ -88,20 +88,20 @@ CREATE TABLE `menus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `menus` */
 
 insert  into `menus`(`id`,`parent`,`location_id`,`type_id`,`menu_name`,`menu_link`,`new_tab`,`ordering`,`status`,`created_at`,`updated_at`) values 
-(2,0,1,4,'Storage Locations','/storage-locations',0,3,'Active','2023-09-09 07:44:18','2023-09-09 13:35:32'),
-(3,0,1,4,'Resources','/resources',0,2,'Active','2023-09-09 07:44:45','2023-09-09 07:44:45'),
-(7,2,1,5,'Sub Menu 1','/submenu1',0,0,'Active','2023-09-09 18:23:11','2023-09-09 13:35:34'),
-(9,0,1,4,'Home Menu','/home',0,1,'Active','2023-09-10 09:16:17','2023-09-11 14:21:24'),
-(10,0,1,4,'Blog','/blog',0,4,'Active','2023-09-10 09:20:38','2023-09-10 09:20:38'),
-(11,0,1,4,'Media','/media',0,5,'Active','2023-09-10 09:21:50','2023-09-10 09:21:50'),
-(12,2,1,4,'Sub Menu 2','/submenu2',0,2,'Active','2023-09-10 09:28:15','2023-09-10 09:28:15'),
-(13,3,1,4,'Sub Menu 3','/submenu3',1,3,'Active','2023-09-10 09:29:09','2023-09-10 09:29:09'),
-(19,0,2,5,'TEST','/test',1,6,'Active','2023-09-11 14:54:47','2023-09-11 14:54:47');
+(2,0,1,4,'Storage Locations','/storage-locations',0,3,'Active','2023-09-09 07:44:18','2023-09-12 18:44:14'),
+(3,0,1,4,'Resources','/resources',0,2,'Active','2023-09-09 07:44:45','2023-09-12 18:41:20'),
+(7,2,1,5,'Sub Menu 1','/submenu1',0,4,'Active','2023-09-09 18:23:11','2023-09-12 18:44:14'),
+(9,0,1,4,'Home','/home',0,1,'Active','2023-09-10 09:16:17','2023-09-12 18:44:51'),
+(10,0,1,4,'Blog','/blog',0,6,'Active','2023-09-10 09:20:38','2023-09-12 18:44:31'),
+(11,0,1,4,'Media','/media',0,8,'Active','2023-09-10 09:21:50','2023-09-12 18:44:14'),
+(12,2,1,4,'Sub Menu 2','/submenu2',0,5,'Active','2023-09-10 09:28:15','2023-09-12 18:44:14'),
+(13,10,1,4,'Sub Menu 3','/submenu3',1,7,'Inactive','2023-09-10 09:29:09','2023-09-12 18:44:31'),
+(20,0,1,4,'TEST','/test',1,9,'Active','2023-09-12 14:41:59','2023-09-12 18:44:14');
 
 /*Table structure for table `migrations` */
 

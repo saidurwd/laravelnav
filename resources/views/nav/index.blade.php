@@ -109,18 +109,19 @@
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
-                            <form action="@{{ route('menus.update', $menu->id) }}" method="POST"
+                            <form action="{{ url('menus/update') }}" class="form-inline" method="POST"
                                   enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+                                <input type="hidden" name="id" id="id_edit" value="">
                                 <div class="mb-3 mt-3">
                                     <label for="email" class="form-label clearfix">Menu Location</label><br/>
                                     @if(count($locations) > 0)
                                         @foreach($locations as $location)
                                             <div class="form-check form-check-inline">
                                                 <input type="radio" class="form-check-input"
-                                                       id="location_{{$location->id}}"
-                                                       name="location_id" value="{{$location->id}}">
+                                                       id="location_id_edit"
+                                                       name="location_id" value="{{$location->id}}" required>
                                                 <label class="form-check-label"
                                                        for="radio{{$location->id}}">{{$location->title}}</label>
                                             </div>
@@ -132,8 +133,8 @@
                                     @if(count($types) > 0)
                                         @foreach($types as $type)
                                             <div class="form-check form-check-inline">
-                                                <input type="radio" class="form-check-input" id="type_{{$type->id}}"
-                                                       name="type_id" value="{{$type->id}}">
+                                                <input type="radio" class="form-check-input" id="type_id_edit"
+                                                       name="type_id" value="{{$type->id}}" required>
                                                 <label class="form-check-label"
                                                        for="radio{{$type->id}}">{{$type->title}}</label>
                                             </div>
@@ -142,26 +143,24 @@
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <label for="email" class="form-label">Menu Name</label>
-                                    <input type="text" class="form-control" id="menu_name" placeholder="Text Here"
-                                           name="menu_name" value="{{ @$menu->menu_name }}" required>
+                                    <input type="text" class="form-control" id="menu_name_edit" placeholder="Text Here"
+                                           name="menu_name" required>
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <label for="email" class="form-label">Menu Link</label>
-                                    <input type="text" class="form-control" id="menu_link" placeholder="#"
+                                    <input type="text" class="form-control" id="menu_link_edit" placeholder="#"
                                            name="menu_link"
-                                           value="{{ @$menu->menu_link }}" required>
+                                           required>
                                 </div>
                                 <div class="form-check mb-3">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" name="new_tab" value="1">
-                                        Open
-                                        in a new
-                                        tab
+                                        <input class="form-check-input" type="checkbox" name="new_tab" id="new_tab_edit" value="1">
+                                        Open in a new tab
                                     </label>
                                 </div>
                                 <div class="form-check mb-3 pt-5 float-end">
                                     <label class="form-check-label">
-                                        <button type="submit" class="btn btn-warning" style="width: 100px;">Save
+                                        <button type="submit" class="btn btn-warning" style="width: 100px;">Update
                                         </button>
                                     </label>
                                 </div>
@@ -220,20 +219,27 @@
                         //success data
                         console.log(id);
                         $('#DeleteMenuModal').modal('hide');
-                        $('#DeleteMenuModal').load(document.URL + '#DeleteMenuModal');
+                        $('#DeleteMenuModal').load(document.URL + '#dd');
                     })
                 });
                 $(document).on('click', '.EditMenuModal', function () {
-                    var url = "menus/edit-menu";
                     var id = $(this).val();
-                    $.get(url + '/' + id, function (data) {
-                        //success data
-                        console.log(menu_name);
-                        $('#id').val(id);
-                        $('#menu_name').val(menu_name);
-                        $('#menu_link').val(menu_link);
-                        // $('#btn-save').val("update");
-                        $('#EditMenuModal').modal('show');
+                    $('#EditMenuModal').modal('show');
+                    $.ajax({
+                        type: "GET",
+                        url: "menus/update-menu/" + id,
+                        success: function (response) {
+                            // console.log(response);
+                            $('#location_id_edit').val(response.menus.location_id);
+                            $('#type_id_edit').val(response.menus.type_id);
+                            $('#menu_name_edit').val(response.menus.menu_name);
+                            $('#menu_link_edit').val(response.menus.menu_link);
+                            $('#new_tab_edit').val(response.menus.new_tab);
+                            $('#id_edit').val(response.menus.id);
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                        }
                     })
                 });
 

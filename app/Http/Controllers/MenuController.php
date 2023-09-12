@@ -12,7 +12,6 @@ class MenuController extends Controller
     public function index()
     {
         return view('nav.index', [
-            'menus' => Menu::getMenu(),
             'locations' => MenuSetting::getData('LOCATION'),
             'types' => MenuSetting::getData('TYPE'),
             'ddMenus' => Menu::getDragDropMenu(Menu::getMenuItems())
@@ -63,18 +62,29 @@ class MenuController extends Controller
         ]);
     }
 
-    public function update(Request $request, Menu $menu)
+    public function edit_menu($id)
     {
-        $request->validate([
-            'location_id' => 'required',
-            'type_id' => 'required',
-            'menu_name' => 'required',
-            'menu_link' => 'required',
+        $menus = Menu::find($id);
+        return response()->json([
+            'status' => 200,
+            'menus' => $menus,
         ]);
-
-        $menu->fill($request->post())->save();
-        return redirect()->route('menus.index')->with('success', 'Menu has been updated successfully');
     }
+
+    public function update(Request $request)
+    {
+        $menu_id = $request->input('id');
+        $menus = Menu::find($menu_id);
+        $menus->id = $request->input('id');
+        $menus->location_id = $request->input('location_id');
+        $menus->type_id = $request->input('type_id');
+        $menus->menu_name = $request->input('menu_name');
+        $menus->menu_link = $request->input('menu_link');
+        $menus->new_tab = $request->input('new_tab');
+        $menus->update();
+        return redirect()->route('menus.index')->with('success', 'Menu has been updated successfully.');
+    }
+
 
     public function edit_order(Request $request)
     {
