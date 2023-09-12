@@ -66,9 +66,9 @@ class Menu extends Model
     {
         $menu = Menu::where('id', $id)->first();
         if ($menu->status == 'Active') {
-            return '<a href="statusupdate/' . $menu->id . '" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
+            return '<a href="menus/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
         } else {
-            return '<a href="statusupdate/' . $menu->id . '" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
+            return '<a href="menus/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
         }
 
     }
@@ -105,7 +105,7 @@ class Menu extends Model
                             <p class="text-secondary mx-3"><span id="link_show' . $value['id'] . '">' . $value['menu_link'] . '</span></p>
                         </div>
                         <div class="col-sm-6">
-                            <i class="fa fa-eye"></i> <span class="text-uppercase">' . $value['menu_name'] . '</span>
+                            ' . Menu::getStatus($value['id']) . '<span class="text-uppercase">' . $value['menu_name'] . '</span>
                         </div>
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="' . $value['id'] . '"><i class="fa fa-pencil"></i></button>
