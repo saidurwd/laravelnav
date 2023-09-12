@@ -12,7 +12,6 @@ class MenuController extends Controller
     public function index()
     {
         return view('nav.index', [
-//            'menus' =>  Menu::where([['status', 'Active'], ['parent', 0]])->orderBy("ordering", "ASC")->get(),
             'menus' => Menu::getMenu(),
             'locations' => MenuSetting::getData('LOCATION'),
             'types' => MenuSetting::getData('TYPE'),
@@ -81,8 +80,6 @@ class MenuController extends Controller
     {
         $req = $request->all();
         $json_data = $request->input('data');
-//        print_r($json_data); exit;
-//        $data = json_decode($_POST['data']);
         $data = json_decode($json_data);
         $readbleArray = Menu::parseJsonArray($data);
         $i = 0;

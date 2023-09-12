@@ -21,7 +21,6 @@
                         </button>
                     </div>
                 </div>
-                {{--                {!! $menus !!}--}}
                 <div class="cf nestable-lists">
                     <div class="dd" id="nestable">
                         {!! $ddMenus !!}
