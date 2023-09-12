@@ -199,9 +199,10 @@
                     </div>
                 </div>
             </div>
-            <div id="load"></div>
+            <div id="load" class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
             <input type="hidden" id="nestable-output">
-            {{--            <button id="save">Save</button>--}}
             <script>
                 $(document).on('click', '.DeleteMenuModal', function () {
                     var url = "menus/find-menu";
@@ -274,7 +275,6 @@
                     $("#load").hide();
                     $('.dd').on('change', function () {
                         $("#load").show();
-
                         var dataString = {
                             data: $("#nestable-output").val(),
                         };

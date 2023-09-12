@@ -12,10 +12,6 @@ MySQL - 10.4.28-MariaDB : Database - laravelnav
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`laravelnav` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
-
-USE `laravelnav`;
-
 /*Table structure for table `companies` */
 
 DROP TABLE IF EXISTS `companies`;
@@ -92,7 +88,7 @@ CREATE TABLE `menus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `menus` */
 
@@ -100,11 +96,12 @@ insert  into `menus`(`id`,`parent`,`location_id`,`type_id`,`menu_name`,`menu_lin
 (2,0,1,4,'Storage Locations','/storage-locations',0,3,'Active','2023-09-09 07:44:18','2023-09-09 13:35:32'),
 (3,0,1,4,'Resources','/resources',0,2,'Active','2023-09-09 07:44:45','2023-09-09 07:44:45'),
 (7,2,1,5,'Sub Menu 1','/submenu1',0,0,'Active','2023-09-09 18:23:11','2023-09-09 13:35:34'),
-(9,0,1,4,'Home','/home',0,1,'Active','2023-09-10 09:16:17','2023-09-10 09:16:17'),
+(9,0,1,4,'Home Menu','/home',0,1,'Active','2023-09-10 09:16:17','2023-09-11 14:21:24'),
 (10,0,1,4,'Blog','/blog',0,4,'Active','2023-09-10 09:20:38','2023-09-10 09:20:38'),
 (11,0,1,4,'Media','/media',0,5,'Active','2023-09-10 09:21:50','2023-09-10 09:21:50'),
 (12,2,1,4,'Sub Menu 2','/submenu2',0,2,'Active','2023-09-10 09:28:15','2023-09-10 09:28:15'),
-(13,3,1,4,'Sub Menu 3','/submenu3',1,3,'Active','2023-09-10 09:29:09','2023-09-10 09:29:09');
+(13,3,1,4,'Sub Menu 3','/submenu3',1,3,'Active','2023-09-10 09:29:09','2023-09-10 09:29:09'),
+(19,0,2,5,'TEST','/test',1,6,'Active','2023-09-11 14:54:47','2023-09-11 14:54:47');
 
 /*Table structure for table `migrations` */
 
