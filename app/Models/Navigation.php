@@ -17,9 +17,9 @@ class Navigation extends Model
     {
         $menu = Navigation::where('id', $id)->first();
         if ($menu->status == 'Active') {
-            return '<a href="navigations/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
+            return '<a href="change-status/' . $menu->id . '" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
         } else {
-            return '<a href="navigations/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
+            return '<a href="change-status/' . $menu->id . '" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
         }
 
     }

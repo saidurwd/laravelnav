@@ -104,7 +104,7 @@ class NavigationController extends Controller
         }
     }
 
-    public function DeleteMenu(Request $request)
+    public function destroy(Request $request)
     {
         Navigation::findOrFail($request->id)->delete();
         return redirect('navigations')->with('success', 'Menu has been deleted successfully');

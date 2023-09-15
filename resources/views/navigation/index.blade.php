@@ -38,7 +38,7 @@
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
-                            <form action="{{ route('navigations.store') }}" class="form-inline" method="POST"
+                            <form action="{{ route('create-nav') }}" class="form-inline" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 mt-3">
@@ -229,7 +229,7 @@
             <input type="hidden" id="nestable-output">
             <script>
                 $(document).on('click', '.DeleteMenuModal', function() {
-                    var url = "navigations/find-menu";
+                    var url = "find-nav";
                     var id = $(this).val();
                     $.get(url + '/' + id, function(data) {
                         //success data
@@ -239,13 +239,13 @@
                     })
                 });
                 $(document).on('click', '#deleteYes', function() {
-                    var url = "navigations/delete-menu";
+                    var url = "delete-nav";
                     var id = $(this).val();
                     $.get(url + '/' + id, function(data) {
                         //success data
                         console.log(id);
                         $('#DeleteMenuModal').modal('hide');
-                        $('#DeleteMenuModal').load(document.URL + '#dd');
+                        $('#DeleteMenuModal').load(document.URL + '.dd');
                     })
                 });
                 $(document).on('click', '.EditMenuModal', function() {
@@ -253,7 +253,7 @@
                     $('#EditMenuModal').modal('show');
                     $.ajax({
                         type: "GET",
-                        url: "navigations/update-menu/" + id,
+                        url: "update-menu/" + id,
                         success: function(response) {
                             //console.log(response);
                             $('#location_id_' + id).val(response.menus.location_id);
@@ -311,7 +311,7 @@
                         };
                         $.ajax({
                             type: "POST",
-                            url: "navigations/edit-order",
+                            url: "edit-order",
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
