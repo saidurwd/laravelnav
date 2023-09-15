@@ -5,28 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Navigation extends Model
 {
     use HasFactory;
 
-//    protected $table = 'menus';
+//    protected $table = 'navigations';
 //    protected $primaryKey = 'id';
     protected $fillable = ['parent', 'location_id', 'type_id', 'menu_name', 'menu_link', 'new_tab', 'status', 'ordering', 'created_at', 'updated_at'];
 
     public static function getStatus($id)
     {
-        $menu = Menu::where('id', $id)->first();
+        $menu = Navigation::where('id', $id)->first();
         if ($menu->status == 'Active') {
-            return '<a href="menus/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
+            return '<a href="navigations/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm active" title="Active"><i class="fa fa-eye"></i></a> <span class="text-uppercase ms-2">';
         } else {
-            return '<a href="menus/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
+            return '<a href="navigations/statusupdate/' . $menu->id . '" class="btn btn-light btn-sm inactive" title="Inactive"><i class="fa fa-eye-slash"></i></a> <span class="text-uppercase ms-2">';
         }
 
     }
 
     public static function getMenuItems()
     {
-        $query = Menu::orderBy("ordering", "ASC")->get();
+        $query = Navigation::orderBy("ordering", "ASC")->get();
         $ref = [];
         $items = [];
         foreach ($query as $data) {
@@ -46,7 +46,7 @@ class Menu extends Model
 
     public static function getDragDropMenu($items, $class = 'dd-list')
     {
-//        $items = Menu::getMenuItems();
+//        $items = Navigation::getMenuItems();
         $html = "<ol class=\"" . $class . "\" id=\"menu-id\">";
         foreach ($items as $key => $value) {
             $html .= '<li class="dd-item dd3-item" data-id="' . $value['id'] . '" >
@@ -56,7 +56,7 @@ class Menu extends Model
                             <p class="text-secondary mx-3"><span id="link_show' . $value['id'] . '">' . $value['menu_link'] . '</span></p>
                         </div>
                         <div class="col-sm-6">
-                            ' . Menu::getStatus($value['id']) . '<span class="text-uppercase">' . $value['menu_name'] . '</span>
+                            ' . Navigation::getStatus($value['id']) . '<span class="text-uppercase">' . $value['menu_name'] . '</span>
                         </div>
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-outline-warning btn-sm EditMenuModal" value="'.$value['id'].'"><i class="fa fa-pencil"></i></button>
@@ -64,7 +64,7 @@ class Menu extends Model
                         </div>
                     </div>';
             if (array_key_exists('child', $value)) {
-                $html .= Menu::getDragDropMenu($value['child'], 'child');
+                $html .= Navigation::getDragDropMenu($value['child'], 'child');
             }
             $html .= "</li>";
         }
@@ -78,7 +78,7 @@ class Menu extends Model
         foreach ($jsonArray as $subArray) {
             $returnSubSubArray = array();
             if (isset($subArray->children)) {
-                $returnSubSubArray = Menu::parseJsonArray($subArray->children, $subArray->id);
+                $returnSubSubArray = Navigation::parseJsonArray($subArray->children, $subArray->id);
             }
 
             $return[] = array('id' => $subArray->id, 'parentID' => $parentID);

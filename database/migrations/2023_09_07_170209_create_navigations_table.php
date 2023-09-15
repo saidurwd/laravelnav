@@ -12,14 +12,16 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('navigations', function (Blueprint $table) {
             $table->id();
             $table->integer('parent');
+            $table->integer('user_id');
             $table->integer('location_id');
             $table->integer('type_id');
             $table->string('menu_name');
             $table->string('menu_link');
             $table->integer('new_tab');
+             $table->enum('external_link ', ['Yes', 'No'])->default('No');
             $table->integer('ordering');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
@@ -33,6 +35,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('navigations');
     }
 };

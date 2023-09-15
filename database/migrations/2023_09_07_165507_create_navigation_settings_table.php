@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('menu_settings', function (Blueprint $table) {
+        Schema::create('navigation_settings', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['TYPE', 'LOCATION'])->default('LOCATION');
             $table->string('title');
@@ -27,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('menu_settings');
+        Schema::dropIfExists('navigation_settings');
     }
 };

@@ -49,60 +49,6 @@ CREATE TABLE `failed_jobs` (
 
 /*Data for the table `failed_jobs` */
 
-/*Table structure for table `menu_settings` */
-
-DROP TABLE IF EXISTS `menu_settings`;
-
-CREATE TABLE `menu_settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` enum('TYPE','LOCATION') NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `menu_settings` */
-
-insert  into `menu_settings`(`id`,`type`,`title`,`created_at`,`updated_at`) values 
-(1,'LOCATION','Main Navigation','2023-09-09 09:55:28','2023-09-09 09:55:41'),
-(2,'LOCATION','Top Header','2023-09-09 09:55:34','2023-09-09 09:55:43'),
-(3,'LOCATION','Footer','2023-09-09 09:55:38','2023-09-09 09:55:44'),
-(4,'TYPE','Single Menu','2023-09-09 10:01:04','2023-09-09 10:01:09'),
-(5,'TYPE','Dropdown Menu','2023-09-09 10:01:07','2023-09-09 10:01:11');
-
-/*Table structure for table `menus` */
-
-DROP TABLE IF EXISTS `menus`;
-
-CREATE TABLE `menus` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `parent` int(11) NOT NULL DEFAULT 0,
-  `location_id` int(11) NOT NULL,
-  `type_id` int(11) NOT NULL,
-  `menu_name` varchar(255) NOT NULL,
-  `menu_link` varchar(255) DEFAULT NULL,
-  `new_tab` tinyint(4) DEFAULT 0,
-  `ordering` int(11) DEFAULT 0,
-  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `menus` */
-
-insert  into `menus`(`id`,`parent`,`location_id`,`type_id`,`menu_name`,`menu_link`,`new_tab`,`ordering`,`status`,`created_at`,`updated_at`) values 
-(2,0,1,4,'Storage Locations','/storage-locations',0,3,'Active','2023-09-09 07:44:18','2023-09-12 18:44:14'),
-(3,0,1,4,'Resources','/resources',0,2,'Active','2023-09-09 07:44:45','2023-09-12 18:41:20'),
-(7,2,1,5,'Sub Menu 1','/submenu1',0,4,'Active','2023-09-09 18:23:11','2023-09-12 18:44:14'),
-(9,0,1,4,'Home','/home',0,1,'Active','2023-09-10 09:16:17','2023-09-12 18:44:51'),
-(10,0,1,4,'Blog','/blog',0,6,'Active','2023-09-10 09:20:38','2023-09-12 18:44:31'),
-(11,0,1,4,'Media','/media',0,8,'Active','2023-09-10 09:21:50','2023-09-12 18:44:14'),
-(12,2,1,4,'Sub Menu 2','/submenu2',0,5,'Active','2023-09-10 09:28:15','2023-09-12 18:44:14'),
-(13,10,1,4,'Sub Menu 3','/submenu3',1,7,'Inactive','2023-09-10 09:29:09','2023-09-12 18:44:31'),
-(20,0,1,4,'TEST','/test',1,9,'Active','2023-09-12 14:41:59','2023-09-12 18:44:14');
-
 /*Table structure for table `migrations` */
 
 DROP TABLE IF EXISTS `migrations`;
@@ -124,6 +70,62 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (5,'2023_09_07_165507_create_menu_settings_table',1),
 (6,'2023_09_07_170209_create_menus_table',1),
 (7,'2023_09_10_093656_create_companies_table',2);
+
+/*Table structure for table `navigation_settings` */
+
+DROP TABLE IF EXISTS `navigation_settings`;
+
+CREATE TABLE `navigation_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('TYPE','LOCATION') NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `navigation_settings` */
+
+insert  into `navigation_settings`(`id`,`type`,`title`,`created_at`,`updated_at`) values 
+(1,'LOCATION','Main Navigation','2023-09-09 09:55:28','2023-09-09 09:55:41'),
+(2,'LOCATION','Top Header','2023-09-09 09:55:34','2023-09-09 09:55:43'),
+(3,'LOCATION','Footer','2023-09-09 09:55:38','2023-09-09 09:55:44'),
+(4,'TYPE','Single Menu','2023-09-09 10:01:04','2023-09-09 10:01:09'),
+(5,'TYPE','Dropdown Menu','2023-09-09 10:01:07','2023-09-09 10:01:11');
+
+/*Table structure for table `navigations` */
+
+DROP TABLE IF EXISTS `navigations`;
+
+CREATE TABLE `navigations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `parent` int(11) NOT NULL DEFAULT 0,
+  `user_id` int(11) DEFAULT NULL,
+  `location_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL,
+  `menu_name` varchar(255) NOT NULL,
+  `menu_link` varchar(255) DEFAULT NULL,
+  `new_tab` tinyint(4) DEFAULT 0,
+  `external_link` enum('Yes','No') DEFAULT 'No',
+  `ordering` int(11) DEFAULT 0,
+  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `navigations` */
+
+insert  into `navigations`(`id`,`parent`,`user_id`,`location_id`,`type_id`,`menu_name`,`menu_link`,`new_tab`,`external_link`,`ordering`,`status`,`created_at`,`updated_at`) values 
+(2,0,NULL,1,4,'Storage Locations','/storage-locations',0,'No',3,'Active','2023-09-09 07:44:18','2023-09-12 18:44:14'),
+(3,0,NULL,1,4,'Resources','/resources',0,'No',2,'Inactive','2023-09-09 07:44:45','2023-09-14 16:35:04'),
+(7,2,NULL,1,5,'Sub Menu 1','/submenu1',0,'No',4,'Active','2023-09-09 18:23:11','2023-09-12 18:44:14'),
+(9,0,NULL,1,4,'Home','/home',0,'No',1,'Active','2023-09-10 09:16:17','2023-09-12 18:44:51'),
+(10,0,NULL,1,4,'Blog','/blog',0,'No',6,'Active','2023-09-10 09:20:38','2023-09-12 18:44:31'),
+(11,0,NULL,1,4,'Media','/media',0,'No',8,'Active','2023-09-10 09:21:50','2023-09-12 18:44:14'),
+(12,2,NULL,1,4,'Sub Menu 2','/submenu2',0,'No',5,'Active','2023-09-10 09:28:15','2023-09-12 18:44:14'),
+(13,10,NULL,1,4,'Sub Menu 3','/submenu3',1,'No',7,'Inactive','2023-09-10 09:29:09','2023-09-12 18:44:31'),
+(20,0,NULL,1,4,'TEST','/test',1,'No',9,'Active','2023-09-12 14:41:59','2023-09-12 18:44:14');
 
 /*Table structure for table `password_resets` */
 
