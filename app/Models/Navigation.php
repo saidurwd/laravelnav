@@ -11,7 +11,7 @@ class Navigation extends Model
 
 //    protected $table = 'navigations';
 //    protected $primaryKey = 'id';
-    protected $fillable = ['parent', 'location_id', 'type_id', 'menu_name', 'menu_link', 'new_tab', 'status', 'ordering', 'created_at', 'updated_at'];
+    protected $fillable = ['parent', 'user_id','location_id', 'type_id', 'menu_name', 'menu_link', 'new_tab', 'status', 'external_link','ordering', 'created_at', 'updated_at'];
 
     public static function getStatus($id)
     {

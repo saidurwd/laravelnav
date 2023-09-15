@@ -42,7 +42,7 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 mt-3">
-                                    <label for="email" class="form-label clearfix">Menu Location</label><br />
+                                    <label for="location_id" class="form-label clearfix">Menu Location</label><br />
                                     @if (count($locations) > 0)
                                         @foreach ($locations as $location)
                                             <div class="form-check form-check-inline">
@@ -56,7 +56,7 @@
                                     @endif
                                 </div>
                                 <div class="mb-3 mt-3 clearfix">
-                                    <label for="email" class="form-label">Menu Type</label><br />
+                                    <label for="type_id" class="form-label">Menu Type</label><br />
                                     @if (count($types) > 0)
                                         @foreach ($types as $type)
                                             <div class="form-check form-check-inline">
@@ -69,21 +69,33 @@
                                     @endif
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="email" class="form-label">Menu Name</label>
+                                    <label for="menu_name" class="form-label">Menu Name</label>
                                     <input type="text" class="form-control" id="menu_name" placeholder="Text Here"
                                         name="menu_name" required>
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="email" class="form-label">Menu Link</label>
+                                    <label for="menu_link" class="form-label">Menu Link</label>
                                     <input type="text" class="form-control" id="menu_link" placeholder="#"
                                         name="menu_link" required>
+                                </div>
+                                <div class="mb-3 mt-3 clearfix">
+                                    <label for="external_link" class="form-label">External Link?</label><br />
+                                    @if (count($externals) > 0)
+                                        @foreach ($externals as $external)
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input"
+                                                    id="external_link_{{ $external->id }}" name="external_link"
+                                                    value="{{ $external->id }}" required>
+                                                <label class="form-check-label"
+                                                    for="radio{{ $external->id }}">{{ $external->title }}</label>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="form-check mb-3">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" name="new_tab" value="1">
-                                        Open
-                                        in a new
-                                        tab
+                                        Open in a new tab
                                     </label>
                                 </div>
                                 <div class="form-check mb-3 pt-5 float-end">
@@ -114,12 +126,13 @@
                                 @method('PUT')
                                 <input type="hidden" name="id" id="id_edit" value="">
                                 <div class="mb-3 mt-3">
-                                    <label for="email" class="form-label clearfix">Menu Location</label><br />
+                                    <label for="location_id" class="form-label clearfix">Menu Location</label><br />
                                     @if (count($locations) > 0)
                                         @foreach ($locations as $location)
                                             <div class="form-check form-check-inline">
-                                                <input type="radio" class="form-check-input" id="location_id_edit"
-                                                    name="location_id" value="{{ $location->id }}" required>
+                                                <input type="radio" class="form-check-input"
+                                                    id="location_id_{{ $location->id }}" name="location_id"
+                                                    value="{{ $location->id }}" required>
                                                 <label class="form-check-label"
                                                     for="radio{{ $location->id }}">{{ $location->title }}</label>
                                             </div>
@@ -127,12 +140,13 @@
                                     @endif
                                 </div>
                                 <div class="mb-3 mt-3 clearfix">
-                                    <label for="email" class="form-label">Menu Type</label><br />
+                                    <label for="type_id" class="form-label">Menu Type</label><br />
                                     @if (count($types) > 0)
                                         @foreach ($types as $type)
                                             <div class="form-check form-check-inline">
-                                                <input type="radio" class="form-check-input" id="type_id_edit"
-                                                    name="type_id" value="{{ $type->id }}" required>
+                                                <input type="radio" class="form-check-input"
+                                                    id="type_id_{{ $type->id }}" name="type_id"
+                                                    value="{{ $type->id }}" required>
                                                 <label class="form-check-label"
                                                     for="radio{{ $type->id }}">{{ $type->title }}</label>
                                             </div>
@@ -140,14 +154,28 @@
                                     @endif
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="email" class="form-label">Menu Name</label>
+                                    <label for="menu_name" class="form-label">Menu Name</label>
                                     <input type="text" class="form-control" id="menu_name_edit"
                                         placeholder="Text Here" name="menu_name" required>
                                 </div>
                                 <div class="mb-3 mt-3">
-                                    <label for="email" class="form-label">Menu Link</label>
+                                    <label for="menu_link" class="form-label">Menu Link</label>
                                     <input type="text" class="form-control" id="menu_link_edit" placeholder="#"
                                         name="menu_link" required>
+                                </div>
+                                <div class="mb-3 mt-3 clearfix">
+                                    <label for="external_link" class="form-label">External Link?</label><br />
+                                    @if (count($externals) > 0)
+                                        @foreach ($externals as $external)
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input"
+                                                    id="external_link_{{ $external->id }}" name="external_link"
+                                                    value="{{ $external->id }}" required>
+                                                <label class="form-check-label"
+                                                    for="radio{{ $external->id }}">{{ $external->title }}</label>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="form-check mb-3">
                                     <label class="form-check-label">
@@ -227,11 +255,12 @@
                         type: "GET",
                         url: "navigations/update-menu/" + id,
                         success: function(response) {
-                            // console.log(response);
-                            $('#location_id_edit').val(response.menus.location_id);
-                            $('#type_id_edit').val(response.menus.type_id);
+                            //console.log(response);
+                            $('#location_id_' + id).val(response.menus.location_id);
+                            $('#type_id_' + id).val(response.menus.type_id);
                             $('#menu_name_edit').val(response.menus.menu_name);
                             $('#menu_link_edit').val(response.menus.menu_link);
+                            $('#external_link' + id).val(response.menus.external_link);
                             $('#new_tab_edit').val(response.menus.new_tab);
                             $('#id_edit').val(response.menus.id);
                         },

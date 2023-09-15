@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('menu_name');
             $table->string('menu_link');
             $table->integer('new_tab');
-             $table->enum('external_link ', ['Yes', 'No'])->default('No');
+             $table->integer('external_link');
             $table->integer('ordering');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();

@@ -14,6 +14,7 @@ class NavigationController extends Controller
         return view('navigation.index', [
             'locations' => NavigationSetting::getData('LOCATION'),
             'types' => NavigationSetting::getData('TYPE'),
+            'externals' => NavigationSetting::getData('EXTERNAL'),
             'ddMenus' => Navigation::getDragDropMenu(Navigation::getMenuItems())
         ]);
     }
@@ -72,6 +73,7 @@ class NavigationController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request); exit;
         $menu_id = $request->input('id');
         $menus = Navigation::find($menu_id);
         $menus->id = $request->input('id');
@@ -79,6 +81,7 @@ class NavigationController extends Controller
         $menus->type_id = $request->input('type_id');
         $menus->menu_name = $request->input('menu_name');
         $menus->menu_link = $request->input('menu_link');
+        $menus->external_link = $request->input('external_link');
         $menus->new_tab = $request->input('new_tab');
         $menus->update();
         return redirect()->route('navigations.index')->with('success', 'Menu has been updated successfully.');
